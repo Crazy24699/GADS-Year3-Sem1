@@ -11,6 +11,17 @@ public class CollidingBox : MonoBehaviour
 
     public InteractedObjects CurrentObject;
 
+    public GameObject CollidedObject;
+    public Material CollidedMaterial;
+    public MeshFilter MeshFilterRef;
+
+    int DelayTime;
+    int CurrentTime = 1;
+
+    bool StartSpawning = false;
+
+    int spawned;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,7 +31,7 @@ public class CollidingBox : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void OnTriggerStay(Collider ObjectCollision)
@@ -86,16 +97,14 @@ public class CollidingBox : MonoBehaviour
     {
         if (!CollisionRef.CompareTag("Interactable"))
         {
-            Debug.Log("Clock");
             return;
         }
 
-        Debug.Log("found    ");
         CurrentObject = CollisionRef.TryGetComponent(out CurrentObject) ?
         CollisionRef.GetComponent<InteractedObjects>() :
         CurrentObject = CollisionRef.AddComponent<InteractedObjects>();
 
-        Mesh MeshRef =CollisionRef.GetComponent<MeshFilter>().sharedMesh;
+        Mesh MeshRef = CollisionRef.GetComponent<MeshFilter>().sharedMesh;
         Vector3[] AllVerticies = MeshRef.vertices;
 
         Transform WorldVertexTransform = CollisionRef.GetComponent<MeshFilter>().transform;
@@ -106,15 +115,36 @@ public class CollidingBox : MonoBehaviour
             for (int i = 0; i < AllVerticies.Length; i++)
             {
                 Vector3 VertexWorldPosition = WorldVertexTransform.TransformPoint(AllVerticies[i]);
-                if(this.GetComponent<Collider>().bounds.Contains(VertexWorldPosition)
-                && !CurrentObject.FoundVertices.Contains(VertexWorldPosition))
+
+                bool HasFoundVerts = CurrentObject.FoundVertices.Contains(VertexWorldPosition);
+
+                if(this.GetComponent<Collider>().bounds.Contains(VertexWorldPosition) && !HasFoundVerts)
                 {
-                    Instantiate(PointRef, VertexWorldPosition, Quaternion.identity);
+                    
                     CurrentObject.FoundVertices.Add(VertexWorldPosition);
                 }
+
             }
+            //DrawMeshFrame(MeshRef);
+            StartCoroutine(CurrentObject.DrawObjectData());
         }
 
+
+    }
+
+    public IEnumerator SpawnDelay(Vector3 SpawnPosition)
+    {
+        yield return new WaitForSeconds(0.5f);
+
+        GameObject Object=Instantiate(PointRef, SpawnPosition, Quaternion.identity);
+        Object.name = "Object " + spawned +"  ";
+        spawned++;
+        
+    }
+
+    protected void DrawMeshFrame(Mesh DrawMeshRef)
+    {
+        Graphics.DrawMesh(DrawMeshRef, Matrix4x4.identity, CollidedMaterial, gameObject.layer);
     }
 
 }

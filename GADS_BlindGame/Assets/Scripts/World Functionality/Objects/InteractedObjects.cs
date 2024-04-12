@@ -13,6 +13,10 @@ public class InteractedObjects : MonoBehaviour
     [HideInInspector]public bool FoundAll = false;
     public bool UpdateVectorDraws;
 
+    public GameObject SpawnObject;
+
+    int SpawnNum;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,14 +31,15 @@ public class InteractedObjects : MonoBehaviour
     }
 
 
-    protected void DrawObjectData()
+    public IEnumerator DrawObjectData()
     {
 
         foreach(var Vertex in FoundVertices)
         {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(Vertex, 0.1f);
-            Debug.Log("matter   "+ AllVertices.Count);
+            yield return new WaitForSeconds(0.5f);
+            GameObject Object = Instantiate(SpawnObject, Vertex, Quaternion.identity);
+            Object.name = "Object " + SpawnNum + "  ";
+
         }
     }
 
