@@ -37,8 +37,8 @@ public class InteractedObjects : MonoBehaviour
         foreach(var Vertex in FoundVertices)
         {
             yield return new WaitForSeconds(0.5f);
-            GameObject Object = Instantiate(SpawnObject, Vertex, Quaternion.identity);
-            Object.name = "Object " + SpawnNum + "  ";
+            //GameObject Object = Instantiate(SpawnObject, Vertex, Quaternion.identity);
+            //Object.name = "Object " + SpawnNum + "  ";
 
         }
     }
