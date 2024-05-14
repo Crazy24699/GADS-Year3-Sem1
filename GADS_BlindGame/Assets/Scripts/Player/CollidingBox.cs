@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro.EditorUtilities;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -15,12 +17,22 @@ public class CollidingBox : MonoBehaviour
     public Material CollidedMaterial;
     public MeshFilter MeshFilterRef;
 
+    //Ints
+    protected List<int> Triangles = new List<int>();
     int DelayTime;
     int CurrentTime = 1;
+    int spawned;
+
+
+    public List<Vector3> Vertices;
+
+    protected List<FaceData> Faces;
 
     bool StartSpawning = false;
+    public bool Detect = false;
+    
 
-    int spawned;
+
 
     // Start is called before the first frame update
     void Start()
@@ -36,11 +48,53 @@ public class CollidingBox : MonoBehaviour
 
     public void OnTriggerStay(Collider ObjectCollision)
     {
-
-
-
+        if (CurrentObject == null || !Detect)
+        {
+            return;
+        }
+        
         //RetrievePointData(ObjectCollision);
-        PointDataTest(ObjectCollision);
+        //PointDataTest(ObjectCollision);
+        if(ObjectCollision.GetComponent<InteractedObjects>() != null && ObjectCollision.CompareTag("Interactable"))
+        {
+            InteractedObjects ObjectScript = ObjectCollision.GetComponent<InteractedObjects>();
+
+            Mesh MeshRef = ObjectScript.MeshFilterRef.sharedMesh;
+            HashSet<Vector3> Verts = new HashSet<Vector3>(MeshRef.vertices);
+
+            Transform WorldVertexTransform = ObjectCollision.GetComponent<MeshFilter>().transform;
+            if (ObjectScript.MeshRef.vertices.Count() >= 1000)
+            {
+                return;
+            }
+
+            if (MeshRef != null)
+            {
+
+                for (int i = 0; i < Verts.Count; i++)
+                {
+                    Vector3 VertexWorldPosition = WorldVertexTransform.TransformPoint(Verts.ToList()[i]);
+
+                    bool HasFoundVerts = CurrentObject.FoundVertices.Contains(VertexWorldPosition);
+
+                    if (this.GetComponent<Collider>().bounds.Contains(VertexWorldPosition) && !HasFoundVerts)
+                    {
+                        ObjectScript.FoundFacesUpdate(Verts.ToList()[i]);
+                    }
+
+                }
+                //DrawMeshFrame(MeshRef);
+                //StartCoroutine(CurrentObject.DrawObjectData());
+            }
+
+            //foreach (var Vertex in Verts)
+            //{
+            //    Debug.Log("Ref");
+            //    Debug.Log(ObjectScript.MeshRef);
+                
+            //    
+            //}
+        }
         if (CurrentObject != null)
         {
             //Debug.Log(CurrentObject.FoundVertices.Count);
@@ -49,7 +103,7 @@ public class CollidingBox : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        CurrentObject.UpdateVectorDraws = false;
+        //CurrentObject.UpdateVectorDraws = false;
     }
 
     public void RetrievePointData(Collider CollisionRef)
@@ -68,7 +122,7 @@ public class CollidingBox : MonoBehaviour
         //CurrentObject=CollisionRef.AddComponent<InteractedObjects>();
 
         CurrentObject = CollisionRef.gameObject.GetComponent<InteractedObjects>();
-        Mesh MeshRef = CollisionRef.GetComponent<MeshFilter>().sharedMesh;
+        Mesh MeshRef = CurrentObject.MeshRef;
         HashSet<Vector3> Verts = new HashSet<Vector3>(MeshRef.vertices);
 
 
@@ -92,7 +146,6 @@ public class CollidingBox : MonoBehaviour
 
     }
 
-
     public void PointDataTest(Collider CollisionRef)
     {
         if (!CollisionRef.CompareTag("Interactable"))
@@ -106,6 +159,7 @@ public class CollidingBox : MonoBehaviour
 
         Mesh MeshRef = CollisionRef.GetComponent<MeshFilter>().sharedMesh;
         Vector3[] AllVerticies = MeshRef.vertices;
+        int[] AllTriangles = MeshRef.triangles;
 
         Transform WorldVertexTransform = CollisionRef.GetComponent<MeshFilter>().transform;
 
@@ -120,9 +174,10 @@ public class CollidingBox : MonoBehaviour
 
                 if(this.GetComponent<Collider>().bounds.Contains(VertexWorldPosition) && !HasFoundVerts)
                 {
-                    
                     CurrentObject.FoundVertices.Add(VertexWorldPosition);
                 }
+
+
 
             }
             //DrawMeshFrame(MeshRef);
@@ -136,9 +191,9 @@ public class CollidingBox : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
 
-        GameObject Object=Instantiate(PointRef, SpawnPosition, Quaternion.identity);
-        Object.name = "Object " + spawned +"  ";
-        spawned++;
+        //GameObject Object=Instantiate(PointRef, SpawnPosition, Quaternion.identity);
+        //Object.name = "Object " + spawned +"  ";
+        //spawned++;
         
     }
 
@@ -147,4 +202,10 @@ public class CollidingBox : MonoBehaviour
         Graphics.DrawMesh(DrawMeshRef, Matrix4x4.identity, CollidedMaterial, gameObject.layer);
     }
 
+
+
+    protected void UpdateMesh()
+    {
+
+    }
 }
