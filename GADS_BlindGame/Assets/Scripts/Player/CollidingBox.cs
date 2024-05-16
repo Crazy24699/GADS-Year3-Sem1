@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using TMPro.EditorUtilities;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -30,13 +31,22 @@ public class CollidingBox : MonoBehaviour
 
     bool StartSpawning = false;
     public bool Detect = false;
-    
 
 
+    public Transform startPoint; // The starting point of the ray
+    public Transform endPoint;   // The end point of the ray
 
     // Start is called before the first frame update
     void Start()
     {
+        
+    }
+
+    private void OnDrawGizmos()
+    {
+        Vector3 direction = endPoint.position - startPoint.position;
+
+        //Gizmos.DrawRay(startPoint.position, direction);
         
     }
 
