@@ -607,12 +607,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PointRef: {fileID: 8935513}
-  CurrentObject: {fileID: 1632181997}
+  CurrentObject: {fileID: 0}
   CollidedObject: {fileID: 1632181996}
   CollidedMaterial: {fileID: 0}
   MeshFilterRef: {fileID: 1632182000}
   Vertices: []
-  Detect: 1
   startPoint: {fileID: 31991449}
   endPoint: {fileID: 2059470568}
 --- !u!65 &294303988
@@ -1389,7 +1388,7 @@ GameObject:
   - component: {fileID: 1632182000}
   - component: {fileID: 1632181999}
   - component: {fileID: 1632181998}
-  - component: {fileID: 1632181997}
+  - component: {fileID: 1632182002}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Interactable
@@ -1397,28 +1396,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1632181997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1632181996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 547fbc19de4297b468b24d5589316303, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  VerticeList: []
-  FoundAll: 0
-  UpdateVectorDraws: 0
-  Triangles: 
-  AllTriangles: 
-  SpawnObject: {fileID: 8935513}
-  SphereOverlay: {fileID: 1929835938}
-  MeshFilterRef: {fileID: 0}
-  MeshRef: {fileID: 0}
-  Faces: []
 --- !u!135 &1632181998
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1506,6 +1483,24 @@ Transform:
   - {fileID: 1929835939}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1632182002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632181996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 547fbc19de4297b468b24d5589316303, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  VerticeList: []
+  UpdateVectorDraws: 0
+  SpawnObject: {fileID: 0}
+  SphereOverlay: {fileID: 0}
+  MeshFilterRef: {fileID: 0}
+  MeshRef: {fileID: 0}
 --- !u!1 &1817179697
 GameObject:
   m_ObjectHideFlags: 0
@@ -1759,15 +1754,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   VerticeList: []
-  FoundAll: 0
   UpdateVectorDraws: 0
-  Triangles: 
-  AllTriangles: 
   SpawnObject: {fileID: 0}
   SphereOverlay: {fileID: 0}
   MeshFilterRef: {fileID: 0}
   MeshRef: {fileID: 0}
-  Faces: []
 --- !u!65 &2115355705
 BoxCollider:
   m_ObjectHideFlags: 0

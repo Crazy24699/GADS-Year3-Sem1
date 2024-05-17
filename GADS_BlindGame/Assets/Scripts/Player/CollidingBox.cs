@@ -26,11 +26,7 @@ public class CollidingBox : MonoBehaviour
 
 
     public List<Vector3> Vertices;
-
-    protected List<FaceData> Faces;
-
-    bool StartSpawning = false;
-    public bool Detect = false;
+    HashSet<Vector3> FoundVertices = new HashSet<Vector3>();
 
 
     public Transform startPoint; // The starting point of the ray
@@ -58,50 +54,48 @@ public class CollidingBox : MonoBehaviour
 
     public void OnTriggerStay(Collider ObjectCollision)
     {
-        if (CurrentObject == null || !Detect)
-        {
-            return;
-        }
         
         //RetrievePointData(ObjectCollision);
         //PointDataTest(ObjectCollision);
-        if(ObjectCollision.GetComponent<InteractedObjects>() != null && ObjectCollision.CompareTag("Interactable"))
+        if(ObjectCollision.CompareTag("Interactable"))
         {
-            InteractedObjects ObjectScript = ObjectCollision.GetComponent<InteractedObjects>();
+            GameObject ObjectScript = ObjectCollision.gameObject;
 
-            Mesh MeshRef = ObjectScript.MeshFilterRef.sharedMesh;
-            HashSet<Vector3> Verts = new HashSet<Vector3>(MeshRef.vertices);
+            Mesh MeshRef = ObjectScript.GetComponent<MeshFilter>().sharedMesh;
+            HashSet<Vector3> AllVertices = new HashSet<Vector3>(MeshRef.vertices);
 
+            
             Transform WorldVertexTransform = ObjectCollision.GetComponent<MeshFilter>().transform;
-            if (ObjectScript.MeshRef.vertices.Count() >= 1000)
+
+            if (CurrentObject == null || CurrentObject.name != CollidedObject.name)
             {
-                return;
+                CurrentObject = CollidedObject.GetComponent<InteractedObjects>();
             }
 
             if (MeshRef != null)
             {
 
-                for (int i = 0; i < Verts.Count; i++)
+                for (int i = 0; i < AllVertices.Count; i++)
                 {
-                    Vector3 VertexWorldPosition = WorldVertexTransform.TransformPoint(Verts.ToList()[i]);
+                    Vector3 VertexWorldPosition = WorldVertexTransform.TransformPoint(AllVertices.ToList()[i]);
 
                     bool HasFoundVerts = CurrentObject.FoundVertices.Contains(VertexWorldPosition);
 
                     if (this.GetComponent<Collider>().bounds.Contains(VertexWorldPosition) && !HasFoundVerts)
                     {
-                        ObjectScript.FoundFacesUpdate(Verts.ToList()[i]);
+                        FoundVertices.Add(AllVertices.ToList()[i]);
                     }
 
                 }
                 //DrawMeshFrame(MeshRef);
                 //StartCoroutine(CurrentObject.DrawObjectData());
             }
-
+            Vertices = FoundVertices.ToList();
             //foreach (var Vertex in Verts)
             //{
             //    Debug.Log("Ref");
             //    Debug.Log(ObjectScript.MeshRef);
-                
+
             //    
             //}
         }
@@ -132,6 +126,7 @@ public class CollidingBox : MonoBehaviour
         //CurrentObject=CollisionRef.AddComponent<InteractedObjects>();
 
         CurrentObject = CollisionRef.gameObject.GetComponent<InteractedObjects>();
+
         Mesh MeshRef = CurrentObject.MeshRef;
         HashSet<Vector3> Verts = new HashSet<Vector3>(MeshRef.vertices);
 
@@ -191,7 +186,7 @@ public class CollidingBox : MonoBehaviour
 
             }
             //DrawMeshFrame(MeshRef);
-            StartCoroutine(CurrentObject.DrawObjectData());
+            //StartCoroutine(CurrentObject.DrawObjectData());
         }
 
 
