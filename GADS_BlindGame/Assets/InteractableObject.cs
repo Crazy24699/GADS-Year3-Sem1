@@ -34,8 +34,23 @@ public class InteractableObject : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            MergeTriangles(new List<int> { 0, 2 });
+            MergeTriangles(new List<int> { 0, 2, 50 });
+            //StartCoroutine(MakeMesh());
         }
+
+
+
+    }
+
+    public IEnumerator MakeMesh()
+    {
+        for (int i = 0; i < ChunkMeshes.Count; i++)
+        {
+            yield return new WaitForSeconds(0.5f);
+
+            
+        }
+
 
     }
 
@@ -88,8 +103,8 @@ public class InteractableObject : MonoBehaviour
             TriangleFaceData.Index = ChunkIndex;
             TriangleFaceData.VertexLocalLocations = ChunkVertices.ToArray();
 
-            TriangleChunkObject.transform.parent = transform;
-            TriangleChunkObject.transform.localPosition = Vector3.zero;
+            //TriangleChunkObject.transform.parent = transform;
+            //TriangleChunkObject.transform.localPosition = Vector3.zero;
             TriangleChunkObject.gameObject.tag = "Interactable";
 
             NewMeshFilter.mesh = MeshChunk;
@@ -150,11 +165,11 @@ public class InteractableObject : MonoBehaviour
             MeshMergeTarget.vertices = MergedVertices.ToArray();
             MeshMergeTarget.triangles = MergedTriangles.ToArray();
 
-            MeshMergeTarget.RecalculateNormals();
-            MeshMergeTarget.RecalculateBounds();
 
             VertexOffset += ChunkMesh.vertexCount;
-            Destroy(ChunkMeshFilters[Chunk].gameObject);
+            //Destroy(ChunkMeshFilters[Chunk].gameObject);
+            MeshMergeTarget.RecalculateNormals();
+            MeshMergeTarget.RecalculateBounds();
 
         }
 
