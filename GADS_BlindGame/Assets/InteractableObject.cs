@@ -14,7 +14,7 @@ public class InteractableObject : MonoBehaviour
 
     public Material MergedMaterial;
 
-    public int Count;
+    public int Index;
 
     protected int VertexOffset;
     protected GameObject SingleMesh;
@@ -30,12 +30,11 @@ public class InteractableObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Count = ChunkMeshFilters.Count;
 
         if (Input.GetKeyDown(KeyCode.L))
         {
-            MergeTriangles(new List<int> { 0, 2, 50 });
-            //StartCoroutine(MakeMesh());
+            //MergeTriangles(new List<int> { 0, Index});
+            StartCoroutine(MakeMesh());
         }
 
 
@@ -46,9 +45,9 @@ public class InteractableObject : MonoBehaviour
     {
         for (int i = 0; i < ChunkMeshes.Count; i++)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.15f);
+            MergeTriangles(new List<int> { 0, i });
 
-            
         }
 
 
@@ -103,14 +102,15 @@ public class InteractableObject : MonoBehaviour
             TriangleFaceData.Index = ChunkIndex;
             TriangleFaceData.VertexLocalLocations = ChunkVertices.ToArray();
 
-            //TriangleChunkObject.transform.parent = transform;
-            //TriangleChunkObject.transform.localPosition = Vector3.zero;
+            TriangleChunkObject.transform.parent = transform;
+            TriangleChunkObject.transform.localPosition = Vector3.zero;
             TriangleChunkObject.gameObject.tag = "Interactable";
 
             NewMeshFilter.mesh = MeshChunk;
             ChunkMeshFilters.Add(NewMeshFilter);
 
             TriangleChunkObject.AddComponent<MeshCollider>();
+            TriangleChunkObject.AddComponent<BoxCollider>();
 
             TriangleChunkObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
             TriangleFaceData.PopulateFaceInfo(NewMeshFilter, MeshChunk);
@@ -124,10 +124,10 @@ public class InteractableObject : MonoBehaviour
 
     public void MergeTriangles(List<int>ChunkIndices)
     {
-        foreach (var Mesh in ChunkMeshFilters)
-        {
-            Debug.Log(Mesh.name);
-        }
+        //foreach (var Mesh in ChunkMeshFilters)
+        //{
+        //    Debug.Log(Mesh.name);
+        //}
         Debug.Log(ChunkMeshFilters.Count);
         if (ChunkIndices.Count < 2) 
         {
@@ -159,18 +159,22 @@ public class InteractableObject : MonoBehaviour
             }
             foreach (var Triangle in ChunkMesh.triangles)
             {
-                MergedTriangles.Add(Triangle);
+                MergedTriangles.Add(Triangle + VertexOffset);
             }
 
             MeshMergeTarget.vertices = MergedVertices.ToArray();
             MeshMergeTarget.triangles = MergedTriangles.ToArray();
 
-
+            Debug.Log(VertexOffset);
             VertexOffset += ChunkMesh.vertexCount;
-            //Destroy(ChunkMeshFilters[Chunk].gameObject);
             MeshMergeTarget.RecalculateNormals();
             MeshMergeTarget.RecalculateBounds();
 
+            //ChunkMeshes.Remove(ChunkMeshes[Chunk]);
+            //ChunkMeshFilters.Remove(ChunkMeshFilters[Chunk]);
+
+            //Destroy(ChunkMeshFilters[Chunk].gameObject);
+            ChunkMeshFilters[Chunk].gameObject.SetActive(false);
         }
 
     }

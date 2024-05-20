@@ -2667,7 +2667,7 @@ MonoBehaviour:
   OriginalMesh: {fileID: 0}
   MeshCollisionRef: {fileID: 0}
   MergedMaterial: {fileID: 2100000, guid: 73ec9a5990830f04f993d5e4bbddf3ed, type: 2}
-  Count: 0
+  Index: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
