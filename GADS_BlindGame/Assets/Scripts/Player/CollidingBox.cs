@@ -83,7 +83,9 @@ public class CollidingBox : MonoBehaviour
 
                     if (this.GetComponent<Collider>().bounds.Contains(VertexWorldPosition) && !HasFoundVerts)
                     {
-                        FoundVertices.Add(AllVertices.ToList()[i]);
+                        FoundVertices.Add(VertexWorldPosition);
+                        CurrentObject.FoundVertices = FoundVertices;
+                        //CurrentObject.SpawnVertexPoint(VertexWorldPosition);
                     }
 
                 }
