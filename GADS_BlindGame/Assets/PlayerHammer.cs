@@ -45,14 +45,11 @@ public class PlayerHammer : MonoBehaviour
             // Ensure positionValue is clamped between 0 and 1
             //Position = Mathf.Clamp01(Position)
 
-           XVector  = Mathf.Lerp(lowerBound.x, upperBound.x, Position.x);
-           YVector  = Mathf.Lerp(lowerBound.z, upperBound.z, Position.y);
+            XVector = Mathf.Lerp(lowerBound.x, upperBound.x, Position.x);
+            YVector = Mathf.Lerp(lowerBound.z, upperBound.z, Position.y);
 
-            // Calculate the new position using linear interpolation (lerp)
-            //Vector3 newPosition = Vector3.Lerp(LowerBound, UpperBound, ReallyDid);
-            Vector3 HandPosition=new Vector3 (XVector, upperBound.y, YVector);
+            Vector3 HandPosition = new Vector3(XVector, upperBound.y, YVector);
 
-            // Apply the new position to the object
             HandObject.transform.position = HandPosition;
 
 
