@@ -7,6 +7,9 @@ TagManager:
   - Interactable
   - ContactPoint
   - Nail Point
+  - Non Interactable
+  - Hammer
+  - Finger
   layers:
   - Default
   - TransparentFX
@@ -14,10 +17,10 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - Work bench Area
+  - 'Out of bounds '
+  - Hand
+  - Not Interactable
   - 
   - 
   - 

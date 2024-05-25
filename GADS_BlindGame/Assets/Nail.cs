@@ -5,19 +5,26 @@ using UnityEngine;
 
 public class Nail : MonoBehaviour
 {
-    public bool Interactable = true;
-    public Vector3 PermanentPosition;
+    //public bool Interactable = true;
+    //public Vector3 PermanentPosition;
+    private NailOutliner NailOutliner;
 
     private void OnTriggerEnter(Collider Collision)
     {
-        if (Collision.gameObject.CompareTag("Nail Point"))
+        if (Collision.gameObject.CompareTag("Hammer") && NailOutliner != null) 
         {
-            PermanentPosition = Collision.transform.TransformPoint(Collision.transform.position);
+            this.transform.position = new Vector3(transform.position.x, 14.48f, transform.position.z);
+            NailOutliner.ChangeOutliner();
+        }
+        if(Collision.gameObject.CompareTag("Nail Point"))
+        {
+            NailOutliner = Collision.gameObject.GetComponent<NailOutliner>();
+            Debug.Log("ran");
         }
     }
 
     private void OnTriggerExit(Collider Collision)
     {
-        
+
     }
 }

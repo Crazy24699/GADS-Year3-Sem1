@@ -20,9 +20,6 @@ public class CollidingBox : MonoBehaviour
 
     //Ints
     protected List<int> Triangles = new List<int>();
-    int DelayTime;
-    int CurrentTime = 1;
-    int spawned;
 
 
     public List<Vector3> Vertices;
