@@ -4,5 +4,20 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: a5bd989a5975d534690dcece90020ca3
+  - enabled: 1
+    path: Assets/Scenes/Cement Level.unity
+    guid: cf241da6bf47ecb468ff5383be3ffd7b
+  - enabled: 1
+    path: Assets/Scenes/Crane.unity
+    guid: 0c1d1961d55ac7c478404d4e0895d61b
+  - enabled: 1
+    path: Assets/Scenes/Hammering.unity
+    guid: 9dad2d5e5b80eba4182a757fcdc0449c
+  - enabled: 1
+    path: Assets/Scenes/SampleScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects: {}

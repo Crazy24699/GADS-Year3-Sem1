@@ -5,8 +5,13 @@ using UnityEngine;
 public class ProgramManager : MonoBehaviour
 {
     public LevelType CurrentType;
-    public LevelType CurrentLevel;
+    public BlindLevel CurrentBlindness;
     public static ProgramManager ManagerInstance;
+
+    public List<int> Sequence1 = new List<int>();
+    public List<int> Sequence2 = new List<int>();
+    public List<int> Sequence3 = new List<int>();
+
 
     // Start is called before the first frame update
     void Start()
