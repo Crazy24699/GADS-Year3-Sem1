@@ -4,9 +4,27 @@ using UnityEngine;
 
 public class HammerObject : MonoBehaviour
 {
+    private PlayerHammer PlayerHammerScript;
+
+    private void Start()
+    {
+        PlayerHammerScript = FindObjectOfType<PlayerHammer>();
+    }
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject);
+        if (other.CompareTag("Finger"))
+        {
+            Debug.Log("Hit the finger biiiiiitch");
+            StartCoroutine(ColliderDisable());
+        }
         
+    }
+
+    public IEnumerator ColliderDisable()
+    {
+        PlayerHammerScript.FingerHit();
+        GetComponent<Collider>().enabled = false;
+        yield return new WaitForSeconds(1f);
+        GetComponent<Collider>().enabled = true;
     }
 }

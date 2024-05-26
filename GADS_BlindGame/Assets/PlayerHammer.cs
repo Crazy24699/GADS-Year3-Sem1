@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,22 +8,36 @@ public class PlayerHammer : MonoBehaviour
 {
     protected float rayLength = 100f; // Length of the ray
 
+    protected int FingerHitNum = 0;
+
     public GameObject SelectedObject;
     protected GameObject HoverObject;       //Where the mouse cursor is hovering over
-    public GameObject HandObject;
+    public GameObject FeelingHandObject;
     public GameObject HammerObject;
+    public GameObject LeftHandObject;
 
+    [Space(5), Header(" ")]
     public Camera ViewCamera; // Assign the main camera in the inspector
     [SerializeField] protected LayerMask HoverObjectMask;
     [SerializeField] protected LayerMask NonInteractable;
 
     
+    [Space(5), Header(" ")]
     public bool HandActivated = false;
     public bool BracingNail = false;
 
+    [Space(5), Header(" ")]
     public Vector2 Position;
     public Vector3 MousePosition;
     public Vector3 HammerHitPosition = new Vector3(0, 14.64f, 0);
+
+    [Space(5), Header(" ")]
+    public Animator HammerAnimation;
+    public Animator LeftHandAnim;
+    public Animator RightHandAnim;
+
+    [Space(5), Header(" ")]
+    public TextMeshProUGUI FingerHitText;
 
     public enum PlayerState
     {
@@ -33,11 +48,18 @@ public class PlayerHammer : MonoBehaviour
 
     private void Start()
     {
-        
+        FingerHitNum -= 1;
+        FingerHit();
+
     }
 
     void Update()
     {
+
+        if(HandActivated )
+        {
+            ActivateHand();
+        }
 
         if(Input.GetMouseButtonDown(0))
         {
@@ -60,17 +82,17 @@ public class PlayerHammer : MonoBehaviour
 
         MouseMovement();
 
-        if(SelectedObject == null)
-        {
-            HandActivated = true;
-        }
-
         if (SelectedObject != null && SelectedObject.layer != NonInteractable) 
         {
             SelectedObject.transform.position = MousePosition;
             //SelectedObject.transform.position = new Vector3(MousePosition.x, 15, MousePosition.z);
         }
 
+    }
+
+    protected void ActivateHand()
+    {
+        FeelingHandObject.transform.position = MousePosition;
     }
 
     private void MouseMovement()
@@ -104,11 +126,9 @@ public class PlayerHammer : MonoBehaviour
         {
             HitObject = HitInfo.collider.gameObject;
 
-            Debug.Log("Ray hit at: " + HitInfo.point + "   " + HitInfo.collider.gameObject.name);
-
             if (HitObject.CompareTag("Interactable") && SelectedObject == null) 
             {
-                Debug.Log("for us");
+                
                 SelectedObject = HitObject;
                 
             }
@@ -132,6 +152,27 @@ public class PlayerHammer : MonoBehaviour
         }
         HammerObject.transform.position = HammerHitPosition;
 
+
+        HammerAnimation.SetTrigger("Swing Hammer");
+    }
+
+    public void LerpLocations(Vector3 StartLocation, Vector3 EndLocation, GameObject MovingObject)
+    {
+        MovingObject.transform.position = Vector3.Lerp(StartLocation, EndLocation, 0.5f);
+    }
+
+    public void NailBraceLogic(Vector3 NailPosition)
+    {
+        //NailPosition = new Vector3(NailPosition.x, NailPosition.y + 0.15f, NailPosition.z);
+        LeftHandAnim.SetTrigger("Brace");
+        LeftHandObject.transform.position=NailPosition;
+    }
+
+    public void FingerHit()
+    {
+        FingerHitNum++;
+        FingerHitText.text = $"You have hit your fingers {FingerHitNum} times of 3 \n" +
+            $"if you hit your finger 3 times you will be found out";
     }
 
 }

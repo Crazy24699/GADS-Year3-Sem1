@@ -15,6 +15,9 @@ public class Nail : MonoBehaviour
         {
             this.transform.position = new Vector3(transform.position.x, 14.48f, transform.position.z);
             NailOutliner.ChangeOutliner();
+            this.gameObject.tag = "Non Interactable";
+            Destroy(this.GetComponent<Rigidbody>());
+            Destroy(this.GetComponent<BoxCollider>());
         }
         if(Collision.gameObject.CompareTag("Nail Point"))
         {

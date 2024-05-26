@@ -32,6 +32,9 @@ public class NailOutliner : MonoBehaviour
             Collision.gameObject.transform.position = transform.position;
             this.transform.parent = PlankScript.gameObject.transform;
             PlayerHammerScript.CurrentState = PlayerHammer.PlayerState.BracingNail;
+            PlayerHammerScript.NailBraceLogic(Collision.gameObject.transform.position);
+
+
             //StartCoroutine(LogicDelay(Collision.gameObject));
         }
 
