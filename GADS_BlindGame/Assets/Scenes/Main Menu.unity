@@ -269,9 +269,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentType: 0
   CurrentBlindness: 0
-  Sequence1: 
-  Sequence2: 
-  Sequence3: 
+  Sequence1: 000000000100000002000000
+  Sequence2: 020000000000000001000000
+  Sequence3: 010000000200000000000000
+  CurrentSequence: 
 --- !u!4 &545556807
 Transform:
   m_ObjectHideFlags: 0
