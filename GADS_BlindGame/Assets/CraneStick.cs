@@ -25,7 +25,7 @@ public class CraneStick : MonoBehaviour
 
         float mappedValue = MapRotationToRange(currentRotation, minRotation, maxRotation, outputMin, outputMax);
 
-        Debug.Log("Mapped Value: " + mappedValue);
+        //Debug.Log("Mapped Value: " + mappedValue);
         transform.eulerAngles = new Vector3(ClampedX, 0, 0);
 
     }

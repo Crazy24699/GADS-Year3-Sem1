@@ -118,8 +118,8 @@ public class PlayerHammer : MonoBehaviour
         }
 
 
-        Vector3 mousePosition = Input.mousePosition;
-        Ray RayData = ViewCamera.ScreenPointToRay(mousePosition);
+        Vector3 CurrentMousePosition = Input.mousePosition;
+        Ray RayData = ViewCamera.ScreenPointToRay(CurrentMousePosition);
         Debug.Log("for her");
         GameObject HitObject;
         if (Physics.Raycast(RayData, out RaycastHit HitInfo, rayLength))
