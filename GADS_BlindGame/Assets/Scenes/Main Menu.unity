@@ -155,6 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 793c7c9a2cd3ace4c89d6dfcf07342c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Blackout: {fileID: 2100000, guid: 4f085b75f44560340b394bbbe0b988da, type: 2}
 --- !u!114 &249143419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -269,10 +270,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrentType: 0
   CurrentBlindness: 0
-  Sequence1: 000000000100000002000000
-  Sequence2: 020000000000000001000000
-  Sequence3: 010000000200000000000000
+  Sequence1: 020000000000000001000000
+  Sequence2: 000000000200000001000000
+  Sequence3: 000000000100000002000000
   CurrentSequence: 
+  CurrentSequenceList: 0
+  LoadingScreen: {fileID: 0}
 --- !u!4 &545556807
 Transform:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ProgramManager : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class ProgramManager : MonoBehaviour
 
     public List<int> CurrentSequence = new List<int>();
     [SerializeField]protected int CurrentSequenceList = 0;
+    public GameObject LoadingScreen;
+    public GameObject BlindSpotRef;
 
     bool Finished = false;
 
@@ -45,6 +48,8 @@ public class ProgramManager : MonoBehaviour
         {
             Finished = true;
         }
+
+
     }
 
     public void SetNewSequence()
@@ -62,6 +67,7 @@ public class ProgramManager : MonoBehaviour
 
             case 1:
                 CurrentSequence = Sequence2.ToList();
+
                 break;
 
             case 2:
@@ -83,6 +89,10 @@ public class ProgramManager : MonoBehaviour
             return;
         }
         int LevelNum = CurrentSequence[0];
+        if (LoadingScreen != null)
+        {
+            LoadingScreen.SetActive(true);
+        }
         switch (LevelNum)
         {
             case 0:
@@ -97,7 +107,51 @@ public class ProgramManager : MonoBehaviour
                 SceneManager.LoadScene("Crane Level");
                 break;
         }
+        VisualiseBlindness();
+        StartCoroutine(LoadingScreenDelay());
         CurrentSequence.RemoveAt(0);
+    }
+
+    public void VisualiseBlindness()
+    {
+        switch (CurrentSequenceList)
+        {
+            default:
+            case 1:
+                break;
+
+            case 2:
+                StartCoroutine(ActivateColour());
+                break;
+
+            case 3:
+                StartCoroutine(LoadingScreenDelay());
+                break;
+        }
+    }
+
+    public IEnumerator ActivateColour()
+    {
+        yield return new WaitForSeconds(0.25f);
+        GameObject BlindSpotObject = GameObject.FindGameObjectWithTag("Player Canvas").transform.Find("Blind Spot").gameObject;
+        Debug.Log(BlindSpotObject.name);
+        BlindSpotRef = BlindSpotObject;
+        Image BlindSpotColor = BlindSpotObject.GetComponent<Image>();
+        BlindSpotColor.enabled = true;
+    }
+
+    public IEnumerator LoadingScreenDelay()
+    {
+        yield return new WaitForSeconds(0.125f);
+        LoadingScreen = GameObject.FindGameObjectWithTag("Player Canvas").transform.Find("LoadingScreenPanel").gameObject;
+        LoadingScreen.SetActive(true);
+        yield return new WaitForSeconds(0.025f);
+        if (CurrentSequenceList==3)
+        {
+            LoadScreen.LoadScreenScript.ChangeMaterials();
+        }
+        yield return new WaitForSeconds(1.5f);
+        LoadingScreen.SetActive(false);
     }
     
 }
