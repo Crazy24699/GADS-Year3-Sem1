@@ -1,6 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.Collections.LowLevel.Unsafe;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -26,16 +25,25 @@ public class PlayerCement : MonoBehaviour
     public CementIngrediants CurrentChosenIngrediant;
     public CementIngrediants[] CementIngrediantsClass;
     protected ComputerLogic ComputerLogicScript;
+    protected ProgramManager ProgramManagerScript;
 
     public GameObject PlacedObject;
+    public GameObject LevelFinishPanel;
+    [SerializeField] protected GameObject InstantFailButton;
+    [SerializeField] protected GameObject NextLevelButton;
+
+    [SerializeField] protected TextMeshProUGUI EndScreenText;
 
     public bool Failed;
+    protected bool InteractionActive = true;
+    public bool HandViewActive = false;
 
     public int IngrediantIndex = 0;
+    public int IncorrectBags = 0;
 
     private void Start()
     {
-        
+        LevelFinishPanel.SetActive(false);
         ViewingCamera = FindObjectOfType<Camera>();
         ViewingCamera.transform.rotation = Quaternion.Euler(StartingCameraRotation);
         ComputerLogicScript = FindObjectOfType<ComputerLogic>();
@@ -58,6 +66,11 @@ public class PlayerCement : MonoBehaviour
         ComputerLogicScript.UpdateInfo($"Place next bag: {NextIngrediant}");
         XRotation = StartingCameraRotation.x;
         YRotation = StartingCameraRotation.y;
+
+        if (FindObjectOfType<ProgramManager>() != null)
+        {
+            ProgramManagerScript = FindObjectOfType<ProgramManager>();
+        }
     }
 
     public void RotateCamera()
@@ -86,10 +99,36 @@ public class PlayerCement : MonoBehaviour
     {
         RotateCamera();
 
-        if(Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(1))
+        {
+            switch (HandViewActive)
+            {
+                case false:
+                    HandViewActive = true;
+                    InteractionActive = false;
+                    break;
+
+                case true:
+                    HandViewActive = false;
+                    InteractionActive = true;
+                    break;
+            }
+        }
+
+        if (HandViewActive)
+        {
+            HandView();
+        }
+
+        if (Input.GetMouseButton(0) && InteractionActive) 
         {
             MouseInteraction();
         }
+    }
+
+    protected void HandView()
+    {
+
     }
 
     public void MouseInteraction()
@@ -170,6 +209,7 @@ public class PlayerCement : MonoBehaviour
 
             case false:
                 Failed = true;
+                IncorrectBags++;
                 break;
 
         }
@@ -179,11 +219,39 @@ public class PlayerCement : MonoBehaviour
 
         ComputerLogicScript.CorrectIngrediantWeight = CementIngrediantsClass[IngrediantIndex].Weight;
         Destroy(PlacedObject);
+        
     }
 
     public void EndGame()
     {
+        InteractionActive = false;
+        Time.timeScale = 0;
+        LevelFinishPanel.SetActive(true);
 
+        if(IncorrectBags>0 &&  IncorrectBags < 3)
+        {
+            EndScreenText.text = $"You used {IncorrectBags} Incorrect material or messurements, the next day the construction team comes on sight, as they are working" +
+                $"a wall falls on them and kills 3, the fault found to be incorrectly mixed materials. \n You were not suspected";
+
+        }
+        else if (IncorrectBags == 3)
+        {
+            EndScreenText.text = "You incorrectly mixed every bag and the mistake was instantyl seen, as such have been fired and you are currently being sued for endagering life and neglagence ";
+            NextLevelButton.SetActive(false);
+            InstantFailButton.SetActive(true);
+
+        }
+
+    }
+
+    public void NextLevel()
+    {
+        ProgramManagerScript.LoadNextLevel();
+    }
+
+    public void MainScreen()
+    {
+        ProgramManagerScript.ReturnToMenu();
     }
 
 }

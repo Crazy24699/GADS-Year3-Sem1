@@ -91,6 +91,8 @@ public class CementBags : MonoBehaviour
         }
         this.transform.position = WeightTable.transform.position;
         this.transform.rotation = Quaternion.Euler(0, SetRotation, 90);
+
+        this.gameObject.tag = "Non Interactable";
     }
 
     public bool CheckIngredients(string ComparingName, float Weight)

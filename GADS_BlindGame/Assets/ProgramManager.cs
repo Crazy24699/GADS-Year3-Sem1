@@ -52,6 +52,11 @@ public class ProgramManager : MonoBehaviour
 
     }
 
+    public void ReturnToMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
+    }
+
     public void SetNewSequence()
     {
         if (CurrentSequenceList >= 3)

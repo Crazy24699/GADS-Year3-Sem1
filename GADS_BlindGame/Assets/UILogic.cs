@@ -20,4 +20,9 @@ public class UILogic : MonoBehaviour
         
     }
 
+    public void StartGame()
+    {
+        ProgramManager.ManagerInstance.LoadNextLevel();
+    }
+
 }
