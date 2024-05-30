@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlankInteraction : MonoBehaviour
@@ -8,6 +9,7 @@ public class PlankInteraction : MonoBehaviour
     public Vector3[] NailLocations;
     [SerializeField]protected int UsedPositions = 0;
     public GameObject[] NailPointVisualisers;
+
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +25,9 @@ public class PlankInteraction : MonoBehaviour
 
             UsedPositions++;
         }
+
+        
+
     }
 
     // Update is called once per frame

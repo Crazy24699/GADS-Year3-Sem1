@@ -18,6 +18,8 @@ public class Nail : MonoBehaviour
             this.gameObject.tag = "Non Interactable";
             Destroy(this.GetComponent<Rigidbody>());
             Destroy(this.GetComponent<BoxCollider>());
+            PlayerHammer HammerScript = FindObjectOfType<PlayerHammer>();
+            HammerScript.UpdateNailList(this);
         }
         if(Collision.gameObject.CompareTag("Nail Point"))
         {

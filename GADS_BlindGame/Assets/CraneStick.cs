@@ -4,52 +4,50 @@ using UnityEngine;
 
 public class CraneStick : MonoBehaviour
 {
-    public Transform targetObject; // The object whose rotation you want to map
-    public float minRotation; // Minimum rotation value (in degrees)
-    public float maxRotation; // Maximum rotation value (in degrees)
-    public float outputMin = 0f; // Minimum output value
-    public float outputMax = 50f; // Maximum output value
+    public Transform RotationObject; 
+    public float RotationMin; 
+    public float RotationMax; 
+
+    public float MinOutputValue = 0f; 
+    public float MaxOutputValue = 50f; 
+    public float CurrentValue;
+
+    public Vector3 AffectedAxis;
 
     void Update()
     {
-        if (targetObject == null)
+        if (RotationObject == null)
         {
             Debug.LogError("Target object is not assigned.");
             return;
         }
 
-        float currentRotation = targetObject.eulerAngles.x;
-        currentRotation = NormalizeAngle(currentRotation);
+        float CurrentRotation = RotationObject.eulerAngles.x;
+        CurrentRotation = NormalizeAngle(CurrentRotation);
 
-        float ClampedX = Mathf.Clamp(currentRotation, minRotation, maxRotation);
+        float ClampedX = Mathf.Clamp(CurrentRotation, RotationMin, RotationMax);
+        CurrentValue = MapRotationToRange(CurrentRotation, RotationMin, RotationMax, MinOutputValue, MaxOutputValue);
 
-        float mappedValue = MapRotationToRange(currentRotation, minRotation, maxRotation, outputMin, outputMax);
-
-        //Debug.Log("Mapped Value: " + mappedValue);
         transform.eulerAngles = new Vector3(ClampedX, 0, 0);
 
     }
 
-    float MapRotationToRange(float rotation, float minRotation, float maxRotation, float outputMin, float outputMax)
+    float MapRotationToRange(float Rotation, float MinRotation, float MaxRotation, float OutputMin, float OutputMax)
     {
 
+        float ClampedRotation = Mathf.Clamp(Rotation, MinRotation, MaxRotation);
+        float RotationNormalised = (ClampedRotation - MinRotation) / (MaxRotation - MinRotation);
+        float ReturnValue = Mathf.Lerp(OutputMin, OutputMax, RotationNormalised);
 
-        float clampedRotation = Mathf.Clamp(rotation, minRotation, maxRotation);
-
-        float normalizedRotation = (clampedRotation - minRotation) / (maxRotation - minRotation);
-
-        float mappedValue = Mathf.Lerp(outputMin, outputMax, normalizedRotation);
-
-        return mappedValue;
+        return ReturnValue;
     }
 
-
-    float NormalizeAngle(float angle)
+    float NormalizeAngle(float Angle)
     {
-        angle = angle % 360;
-        if (angle > 180) angle -= 360;
-        if (angle < -180) angle += 360;
-        return angle;
+        Angle = Angle % 360;
+        if (Angle > 180) Angle -= 360;
+        if (Angle < -180) Angle += 360;
+        return Angle;
     }
 
 }

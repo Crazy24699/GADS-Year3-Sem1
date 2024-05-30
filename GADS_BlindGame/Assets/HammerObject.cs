@@ -14,7 +14,7 @@ public class HammerObject : MonoBehaviour
     {
         if (other.CompareTag("Finger"))
         {
-            Debug.Log("Hit the finger biiiiiitch");
+
             StartCoroutine(ColliderDisable());
         }
         

@@ -99,7 +99,7 @@ public class PlayerCement : MonoBehaviour
     {
         RotateCamera();
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetKeyDown(KeyCode.H))
         {
             switch (HandViewActive)
             {
@@ -152,7 +152,7 @@ public class PlayerCement : MonoBehaviour
             {
                 return;
             }
-            bool CorrectValues = false;
+            bool CorrectValues;
             CementBags CementBags = PlacedObject.GetComponent<CementBags>();
             switch (HitObject.name)
             {

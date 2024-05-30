@@ -860,6 +860,7 @@ MonoBehaviour:
     m_Bits: 512
   HandActivated: 0
   BracingNail: 0
+  HandViewActive: 0
   Position: {x: 0, y: 0}
   MousePosition: {x: 0, y: 0, z: 0}
   HammerHitPosition: {x: 0, y: 0, z: 0}
@@ -868,6 +869,7 @@ MonoBehaviour:
   RightHandAnim: {fileID: 5587910395632452471}
   FingerHitText: {fileID: 1568704762}
   EndScreenText: {fileID: 404206772}
+  AvailableNails: []
   CurrentState: 0
 --- !u!4 &277914146
 Transform:
@@ -1135,8 +1137,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

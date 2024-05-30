@@ -12,6 +12,7 @@ TagManager:
   - Finger
   - IngrediantBag
   - Player Canvas
+  - Environment
   layers:
   - Default
   - TransparentFX

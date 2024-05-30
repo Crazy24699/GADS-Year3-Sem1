@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -28,6 +29,8 @@ public class PlayerHammer : MonoBehaviour
     [Space(5), Header(" ")]
     public bool HandActivated = false;
     public bool BracingNail = false;
+    protected bool InteractionActive = true;
+    public bool HandViewActive = false;
 
     [Space(5), Header(" ")]
     public Vector2 Position;
@@ -45,11 +48,15 @@ public class PlayerHammer : MonoBehaviour
 
     [SerializeField] protected TextMeshProUGUI EndScreenText;
 
+
+    public List<Nail> AvailableNails = new List<Nail>();
+
     public enum PlayerState
     {
         SelectingNail,
         BracingNail,
     }
+
     public PlayerState CurrentState;
 
     protected ProgramManager ProgramManagerScript;
@@ -64,6 +71,18 @@ public class PlayerHammer : MonoBehaviour
         {
             ProgramManagerScript = FindObjectOfType<ProgramManager>();
         }
+
+        AvailableNails = FindObjectsOfType<Nail>().ToList();
+    }
+
+    public void UpdateNailList(Nail NailRef)
+    {
+        AvailableNails.Remove(NailRef);
+        if(AvailableNails.Count <= 0)
+        {
+            LevelFinishPanel.SetActive(true);
+            Time.timeScale = 0.0f;
+        }
     }
 
     void Update()
@@ -74,7 +93,7 @@ public class PlayerHammer : MonoBehaviour
             ActivateHand();
         }
 
-        if(Input.GetMouseButtonDown(0))
+        if(Input.GetMouseButtonDown(0) && InteractionActive)
         {
 
             switch (CurrentState)
@@ -179,12 +198,14 @@ public class PlayerHammer : MonoBehaviour
     public void FingerHit()
     {
         FingerHitNum++;
-        FingerHitText.text = $"You have hit your fingers {FingerHitNum} times of 3 \n" +
-            $"if you hit your finger 3 times you will be found out";
+        FingerHitText.text = $"You have hit your fingers {FingerHitNum} times of 6 \n" +
+            $"if you hit your finger 6 times you will be found out";
 
-        if (FingerHitNum >= 3)
+        if (FingerHitNum >= 6)
         {
             LevelFinishPanel.SetActive(true);
+            NextLevelButton.SetActive(false);
+            InstantFailButton.SetActive(true);
         }
     }
 
