@@ -15,6 +15,9 @@ public class PlayerHammer : MonoBehaviour
     public GameObject FeelingHandObject;
     public GameObject HammerObject;
     public GameObject LeftHandObject;
+    [SerializeField] protected GameObject InstantFailButton;
+    [SerializeField] protected GameObject NextLevelButton;
+    [SerializeField] protected GameObject LevelFinishPanel;
 
     [Space(5), Header(" ")]
     public Camera ViewCamera; // Assign the main camera in the inspector
@@ -39,6 +42,9 @@ public class PlayerHammer : MonoBehaviour
     [Space(5), Header(" ")]
     public TextMeshProUGUI FingerHitText;
 
+
+    [SerializeField] protected TextMeshProUGUI EndScreenText;
+
     public enum PlayerState
     {
         SelectingNail,
@@ -46,11 +52,18 @@ public class PlayerHammer : MonoBehaviour
     }
     public PlayerState CurrentState;
 
+    protected ProgramManager ProgramManagerScript;
+
     private void Start()
     {
+        LevelFinishPanel.SetActive(false);
         FingerHitNum -= 1;
         FingerHit();
 
+        if (FindObjectOfType<ProgramManager>() != null)
+        {
+            ProgramManagerScript = FindObjectOfType<ProgramManager>();
+        }
     }
 
     void Update()
@@ -156,11 +169,6 @@ public class PlayerHammer : MonoBehaviour
         HammerAnimation.SetTrigger("Swing Hammer");
     }
 
-    public void LerpLocations(Vector3 StartLocation, Vector3 EndLocation, GameObject MovingObject)
-    {
-        MovingObject.transform.position = Vector3.Lerp(StartLocation, EndLocation, 0.5f);
-    }
-
     public void NailBraceLogic(Vector3 NailPosition)
     {
         //NailPosition = new Vector3(NailPosition.x, NailPosition.y + 0.15f, NailPosition.z);
@@ -173,6 +181,21 @@ public class PlayerHammer : MonoBehaviour
         FingerHitNum++;
         FingerHitText.text = $"You have hit your fingers {FingerHitNum} times of 3 \n" +
             $"if you hit your finger 3 times you will be found out";
+
+        if (FingerHitNum >= 3)
+        {
+            LevelFinishPanel.SetActive(true);
+        }
+    }
+
+    public void NextLevel()
+    {
+        ProgramManagerScript.LoadNextLevel();
+    }
+
+    public void MainScreen()
+    {
+        ProgramManagerScript.ReturnToMenu();
     }
 
 }
