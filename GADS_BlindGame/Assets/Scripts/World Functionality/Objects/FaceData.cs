@@ -22,7 +22,7 @@ public class FaceData : MonoBehaviour
     {
         FilterRef = CreatedFilter;
         MeshRef = CreatedMesh;
-        InteractableScript = GameObject.FindObjectOfType<InteractableObject>();
+        InteractableScript = transform.GetComponentInParent<InteractableObject>();
 
         PopulateWorldCords();
 

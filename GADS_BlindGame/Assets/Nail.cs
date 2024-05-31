@@ -25,6 +25,11 @@ public class Nail : MonoBehaviour
         {
             NailOutliner = Collision.gameObject.GetComponent<NailOutliner>();
             Debug.Log("ran");
+            for (int i = 0; i < this.transform.childCount; i++)
+            {
+                Destroy(this.transform.GetChild(i).gameObject);
+            }
+            
         }
     }
 

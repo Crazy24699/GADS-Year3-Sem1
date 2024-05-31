@@ -36,13 +36,32 @@ public class ContactPoints : MonoBehaviour
             {
                 FaceDataScript = HitObject.collider.GetComponent<FaceData>();
             }
-            if (HitObject.collider != null && HitObject.collider.CompareTag("Interactable") && FaceDataScript.name != HitObject.collider.name) 
+            bool SwitchObjects= CheckDistance(FaceDataScript.transform.gameObject, HitObject.collider.gameObject);
+            if (HitObject.collider != null && HitObject.collider.CompareTag("Interactable") && FaceDataScript.name != HitObject.collider.name && SwitchObjects) 
             {
-                FaceDataScript = HitObject.collider.GetComponent<FaceData>();
+                /*FaceDataScript =*/
+                
+                /*.collider.GetComponent<FaceData>();*/
                 PlayerScript.CurrentContactObject = FaceDataScript.gameObject;
             }
         }
 
+    }
+
+    public bool CheckDistance(GameObject CurrentObject, GameObject NewObject)
+    {
+        float CurrentObjectDistance = Mathf.Abs(Vector3.Distance(CurrentObject.transform.position, transform.position));
+        float NewObjectDistance = Mathf.Abs(Vector3.Distance(NewObject.transform.position, transform.position));
+
+        if(CurrentObjectDistance > NewObjectDistance)
+        {
+            return true;
+        }
+        else if(CurrentObjectDistance < NewObjectDistance)
+        {
+            return false;
+        }
+        return false;
     }
 
     public void SpawnTrackers()

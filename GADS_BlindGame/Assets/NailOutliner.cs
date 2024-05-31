@@ -20,7 +20,7 @@ public class NailOutliner : MonoBehaviour
 
     protected void OnTriggerEnter(Collider Collision)
     {
-        if (Collision.CompareTag("Interactable") && Collision.name.Contains("Nail")) 
+        if (Collision.CompareTag("Interactable") && Collision.name.Contains("Nail") && PlayerHammerScript.HitHand == false)  
         {
             PlayerHammerScript.SelectedObject = null;
 
@@ -33,7 +33,7 @@ public class NailOutliner : MonoBehaviour
             this.transform.parent = PlankScript.gameObject.transform;
             PlayerHammerScript.CurrentState = PlayerHammer.PlayerState.BracingNail;
             PlayerHammerScript.NailBraceLogic(Collision.gameObject.transform.position);
-
+            Debug.Log(Collision.name);
 
             //StartCoroutine(LogicDelay(Collision.gameObject));
         }

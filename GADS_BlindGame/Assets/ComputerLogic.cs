@@ -32,7 +32,7 @@ public class ComputerLogic : MonoBehaviour
     }
     private void OnTriggerStay(Collider Collision)
     {
-        Debug.Log("The shadows");
+        //Debug.Log("The shadows");
         if (Collision.CompareTag("Interactable") && Collision.name.Contains("bag") && CurrentPlacedObject == null) 
         {
             CurrentPlacedObject = Collision.gameObject;

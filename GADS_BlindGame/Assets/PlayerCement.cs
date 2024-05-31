@@ -31,6 +31,7 @@ public class PlayerCement : MonoBehaviour
     public GameObject LevelFinishPanel;
     [SerializeField] protected GameObject InstantFailButton;
     [SerializeField] protected GameObject NextLevelButton;
+    [SerializeField] protected GameObject HandObject;
 
     [SerializeField] protected TextMeshProUGUI EndScreenText;
 
@@ -41,8 +42,22 @@ public class PlayerCement : MonoBehaviour
     public int IngrediantIndex = 0;
     public int IncorrectBags = 0;
 
+    public Vector2 ScreenMiddleCords;
+    public float ScreenHeight;
+    public float ScreenWidth;
+
+    public LayerMask SelectableLayers;
+
     private void Start()
     {
+        //
+        YRotation = transform.rotation.y;
+
+        ScreenHeight = Screen.height;
+        ScreenWidth = Screen.width;
+        ScreenMiddleCords = new Vector2(ScreenWidth / 2, ScreenHeight / 2);
+        //
+
         LevelFinishPanel.SetActive(false);
         ViewingCamera = FindObjectOfType<Camera>();
         ViewingCamera.transform.rotation = Quaternion.Euler(StartingCameraRotation);
@@ -117,7 +132,7 @@ public class PlayerCement : MonoBehaviour
 
         if (HandViewActive)
         {
-            HandView();
+            HandFunctionality();
         }
 
         if (Input.GetMouseButton(0) && InteractionActive) 
@@ -126,10 +141,26 @@ public class PlayerCement : MonoBehaviour
         }
     }
 
-    protected void HandView()
+    protected void HandFunctionality()
     {
+        // Create a ray from the camera through the mouse position
+        Ray RayCast = ViewingCamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit HitInfo;
 
+        // Perform the raycast and check if it hits a collider on the specified layer
+        if (Physics.Raycast(RayCast, out HitInfo, 100, SelectableLayers))
+        {
+            // Get the point in world space where the ray hit
+            Vector3 HitPoint = HitInfo.point;
+
+            // Log the world position
+            HandObject.transform.position = HitPoint;
+        }
+
+        
     }
+
+
 
     public void MouseInteraction()
     {

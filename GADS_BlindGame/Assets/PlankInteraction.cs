@@ -30,12 +30,6 @@ public class PlankInteraction : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void UpdatePositions(int NailIndex, GameObject OutlinerRef)
     {
         if (UsedPositions < NailLocations.Length) 

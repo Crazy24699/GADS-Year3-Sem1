@@ -13,6 +13,10 @@ TagManager:
   - IngrediantBag
   - Player Canvas
   - Environment
+  - Jib
+  - Destination
+  - workers
+  - Hand
   layers:
   - Default
   - TransparentFX
@@ -24,7 +28,7 @@ TagManager:
   - 'Out of bounds '
   - Hand
   - Not Interactable
-  - 
+  - Interactable
   - 
   - 
   - 

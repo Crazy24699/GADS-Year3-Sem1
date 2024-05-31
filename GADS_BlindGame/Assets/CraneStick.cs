@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CraneStick : MonoBehaviour
 {
+    public float CurrentStickRotationX;
+
     public Transform RotationObject; 
     public float RotationMin; 
     public float RotationMax; 
@@ -13,6 +15,7 @@ public class CraneStick : MonoBehaviour
     public float CurrentValue;
 
     public Vector3 AffectedAxis;
+
 
     void Update()
     {
@@ -28,7 +31,10 @@ public class CraneStick : MonoBehaviour
         float ClampedX = Mathf.Clamp(CurrentRotation, RotationMin, RotationMax);
         CurrentValue = MapRotationToRange(CurrentRotation, RotationMin, RotationMax, MinOutputValue, MaxOutputValue);
 
-        transform.eulerAngles = new Vector3(ClampedX, 0, 0);
+        CurrentStickRotationX = transform.rotation.x;
+
+        transform.localEulerAngles = new Vector3(ClampedX, 0, transform.localRotation.z);
+
 
     }
 

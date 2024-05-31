@@ -19,6 +19,8 @@ public class InteractableObject : MonoBehaviour
     protected int VertexOffset;
     protected GameObject SingleMesh;
 
+    public bool Selected;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,6 +57,10 @@ public class InteractableObject : MonoBehaviour
 
     public void GenerateMeshChunks(Mesh MeshRef, int TrianglesPerChunk)
     {
+        if(!Selected)
+        {
+            return;
+        }
         Vector3[] MeshVertices = MeshRef.vertices;
         int[] MeshTriangles = MeshRef.triangles;
         int TriangleNum = MeshTriangles.Length / 3;
@@ -89,7 +95,7 @@ public class InteractableObject : MonoBehaviour
             }
             
             Mesh MeshChunk = new Mesh();
-            GameObject TriangleChunkObject = new GameObject("Mesh Chunk: " + ChunkIndex);
+            GameObject TriangleChunkObject = new GameObject(this.gameObject.name+" Chunk: " + ChunkIndex);
             FaceData TriangleFaceData = TriangleChunkObject.AddComponent<FaceData>();
             MeshFilter NewMeshFilter = TriangleChunkObject.AddComponent<MeshFilter>();
 
@@ -110,7 +116,7 @@ public class InteractableObject : MonoBehaviour
             ChunkMeshFilters.Add(NewMeshFilter);
 
             TriangleChunkObject.AddComponent<MeshCollider>();
-            TriangleChunkObject.AddComponent<BoxCollider>();
+            //TriangleChunkObject.AddComponent<BoxCollider>();
 
             TriangleChunkObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
             TriangleFaceData.PopulateFaceInfo(NewMeshFilter, MeshChunk);
@@ -124,6 +130,10 @@ public class InteractableObject : MonoBehaviour
 
     public void MergeTriangles(List<int>ChunkIndices)
     {
+        //if (!Selected)
+        //{
+        //    return;
+        //}
         //foreach (var Mesh in ChunkMeshFilters)
         //{
         //    Debug.Log(Mesh.name);
@@ -190,6 +200,9 @@ public class InteractableObject : MonoBehaviour
         MergedFilter.mesh = MeshMergeTarget;
         MeshRenderer MergedMeshRenderer = SingleMesh.AddComponent<MeshRenderer>();
         MergedMeshRenderer.material = MergedMaterial;
+
+        SingleMesh.transform.position = transform.position;
+        SingleMesh.transform.localScale = new Vector3(SingleMesh.transform.localScale.x + 0.025f, SingleMesh.transform.localScale.y + 0.025f, SingleMesh.transform.localScale.z + 0.025f);
         
     }
 
