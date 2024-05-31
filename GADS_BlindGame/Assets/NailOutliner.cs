@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -35,6 +36,8 @@ public class NailOutliner : MonoBehaviour
             PlayerHammerScript.NailBraceLogic(Collision.gameObject.transform.position);
             Debug.Log(Collision.name);
 
+            Debug.Log(PlayerHammerScript.HitHand);
+
             //StartCoroutine(LogicDelay(Collision.gameObject));
         }
 
@@ -44,6 +47,7 @@ public class NailOutliner : MonoBehaviour
         }
 
     }
+
 
     public void ChangeOutliner()
     {
