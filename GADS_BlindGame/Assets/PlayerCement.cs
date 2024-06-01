@@ -17,6 +17,7 @@ public class PlayerCement : MonoBehaviour
     [SerializeField] private float YRotation;
     [SerializeField] private float XRotation;
 
+    public float SpeedModifier = 0.0f;
     [Space(5)]
     [SerializeField] private float RayLength;
 
@@ -92,26 +93,27 @@ public class PlayerCement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W) && XRotation>UpperLimit.x)
         {
-            XRotation = XRotation -= 0.035f;
+            XRotation = XRotation -= 0.035f -SpeedModifier;
 
         }
         if (Input.GetKey(KeyCode.S) && XRotation<LowerLimit.x)
         {
-            XRotation = XRotation += 0.035f;
+            XRotation = XRotation += 0.035f + SpeedModifier;
         }
         if (Input.GetKey(KeyCode.A) && YRotation > UpperLimit.y) 
         {
-            YRotation = YRotation -= 0.035f;
+            YRotation = YRotation -= 0.035f - SpeedModifier;
         }
         if (Input.GetKey(KeyCode.D) && YRotation < LowerLimit.y) 
         {
-            YRotation = YRotation += 0.035f;
+            YRotation = YRotation += 0.035f + SpeedModifier;
         }
         ViewingCamera.gameObject.transform.rotation = Quaternion.Euler(XRotation, YRotation, 0);
     }
 
     private void Update()
     {
+        ModifySpeed();
         RotateCamera();
 
         if (Input.GetKeyDown(KeyCode.H))
@@ -138,6 +140,18 @@ public class PlayerCement : MonoBehaviour
         if (Input.GetMouseButton(0) && InteractionActive) 
         {
             MouseInteraction();
+        }
+    }
+
+    public void ModifySpeed()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            SpeedModifier += 0.005f;
+        }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            SpeedModifier -= 0.005f;
         }
     }
 
@@ -221,6 +235,7 @@ public class PlayerCement : MonoBehaviour
         }
 
     }
+
 
 
     public void HandleBagLogic(bool CorrectValues)

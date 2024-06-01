@@ -993,13 +993,13 @@ MonoBehaviour:
   ViewingCamera: {fileID: 824907782}
   HoverObjectMask:
     serializedVersion: 2
-    m_Bits: 1142
+    m_Bits: 118
   NonInteractable:
     serializedVersion: 2
     m_Bits: 512
   SelectableLayers:
     serializedVersion: 2
-    m_Bits: 1142
+    m_Bits: 118
   HandActivated: 0
   BracingNail: 0
   HandViewActive: 0
@@ -1246,7 +1246,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -2565,7 +2565,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -2909,7 +2909,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -3135,7 +3135,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1061191203
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3460,7 +3460,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -4507,7 +4507,7 @@ BoxCollider:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -6428,8 +6428,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.06, y: 0.059999943, z: 0.78890383}
-  m_Center: {x: -0.000029050248, y: 1.3999953, z: -0.012556751}
+  m_Size: {x: 0.06, y: 0.06, z: 0.79776144}
+  m_Center: {x: -0.0000290939, y: 1.4, z: -0.008127801}
 --- !u!114 &4426497243047245320
 MonoBehaviour:
   m_ObjectHideFlags: 0

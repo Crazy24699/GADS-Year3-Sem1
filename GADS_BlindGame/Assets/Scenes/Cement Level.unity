@@ -662,8 +662,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineObject: 0
+  CustomSize: 0
   DelayTime: 0.5
   CurrentTime: 0
+  IncreaseSize: 0
   ChunkMeshFilters: []
   ChunkMeshes: []
   OriginalMesh: {fileID: 0}
@@ -671,6 +673,8 @@ MonoBehaviour:
   MergedMaterial: {fileID: 2100000, guid: add416e8fc752b640b59ddcb8e4a8c80, type: 2}
   Index: 0
   SingleMesh: {fileID: 0}
+  MeshGameObject: {fileID: 0}
+  CustomScale: {x: 0, y: 0, z: 0}
 --- !u!1 &470833109
 GameObject:
   m_ObjectHideFlags: 0
@@ -998,8 +1002,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineObject: 0
+  CustomSize: 0
   DelayTime: 0.5
   CurrentTime: 0
+  IncreaseSize: 0
   ChunkMeshFilters: []
   ChunkMeshes: []
   OriginalMesh: {fileID: 0}
@@ -1007,6 +1013,8 @@ MonoBehaviour:
   MergedMaterial: {fileID: 2100000, guid: add416e8fc752b640b59ddcb8e4a8c80, type: 2}
   Index: 0
   SingleMesh: {fileID: 0}
+  MeshGameObject: {fileID: 0}
+  CustomScale: {x: 0, y: 0, z: 0}
 --- !u!1 &542039221
 GameObject:
   m_ObjectHideFlags: 0
@@ -1126,8 +1134,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineObject: 0
+  CustomSize: 0
   DelayTime: 0.5
   CurrentTime: 0
+  IncreaseSize: 0
   ChunkMeshFilters: []
   ChunkMeshes: []
   OriginalMesh: {fileID: 0}
@@ -1135,6 +1145,8 @@ MonoBehaviour:
   MergedMaterial: {fileID: 2100000, guid: add416e8fc752b640b59ddcb8e4a8c80, type: 2}
   Index: 0
   SingleMesh: {fileID: 0}
+  MeshGameObject: {fileID: 0}
+  CustomScale: {x: 0, y: 0, z: 0}
 --- !u!1 &569835062
 GameObject:
   m_ObjectHideFlags: 0
@@ -1775,8 +1787,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineObject: 0
+  CustomSize: 0
   DelayTime: 0.5
   CurrentTime: 0
+  IncreaseSize: 0
   ChunkMeshFilters: []
   ChunkMeshes: []
   OriginalMesh: {fileID: 0}
@@ -1784,6 +1798,8 @@ MonoBehaviour:
   MergedMaterial: {fileID: 2100000, guid: add416e8fc752b640b59ddcb8e4a8c80, type: 2}
   Index: 0
   SingleMesh: {fileID: 0}
+  MeshGameObject: {fileID: 0}
+  CustomScale: {x: 0, y: 0, z: 0}
 --- !u!1 &1155906065
 GameObject:
   m_ObjectHideFlags: 0
@@ -1934,8 +1950,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineObject: 0
+  CustomSize: 0
   DelayTime: 0.5
   CurrentTime: 0
+  IncreaseSize: 0
   ChunkMeshFilters: []
   ChunkMeshes: []
   OriginalMesh: {fileID: 0}
@@ -1943,6 +1961,8 @@ MonoBehaviour:
   MergedMaterial: {fileID: 2100000, guid: add416e8fc752b640b59ddcb8e4a8c80, type: 2}
   Index: 0
   SingleMesh: {fileID: 0}
+  MeshGameObject: {fileID: 0}
+  CustomScale: {x: 0, y: 0, z: 0}
 --- !u!1 &1197118442
 GameObject:
   m_ObjectHideFlags: 0
@@ -2062,8 +2082,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineObject: 0
+  CustomSize: 0
   DelayTime: 0.5
   CurrentTime: 0
+  IncreaseSize: 0
   ChunkMeshFilters: []
   ChunkMeshes: []
   OriginalMesh: {fileID: 0}
@@ -2071,6 +2093,8 @@ MonoBehaviour:
   MergedMaterial: {fileID: 2100000, guid: add416e8fc752b640b59ddcb8e4a8c80, type: 2}
   Index: 0
   SingleMesh: {fileID: 0}
+  MeshGameObject: {fileID: 0}
+  CustomScale: {x: 0, y: 0, z: 0}
 --- !u!1 &1238056541
 GameObject:
   m_ObjectHideFlags: 0
@@ -2268,7 +2292,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1360862430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2473,8 +2497,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineObject: 0
+  CustomSize: 0
   DelayTime: 0.5
   CurrentTime: 0
+  IncreaseSize: 0
   ChunkMeshFilters: []
   ChunkMeshes: []
   OriginalMesh: {fileID: 0}
@@ -2482,6 +2508,8 @@ MonoBehaviour:
   MergedMaterial: {fileID: 2100000, guid: add416e8fc752b640b59ddcb8e4a8c80, type: 2}
   Index: 0
   SingleMesh: {fileID: 0}
+  MeshGameObject: {fileID: 0}
+  CustomScale: {x: 0, y: 0, z: 0}
 --- !u!1 &1371850027
 GameObject:
   m_ObjectHideFlags: 0
@@ -2695,8 +2723,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineObject: 0
+  CustomSize: 0
   DelayTime: 0.5
   CurrentTime: 0
+  IncreaseSize: 0
   ChunkMeshFilters: []
   ChunkMeshes: []
   OriginalMesh: {fileID: 0}
@@ -2704,6 +2734,8 @@ MonoBehaviour:
   MergedMaterial: {fileID: 2100000, guid: add416e8fc752b640b59ddcb8e4a8c80, type: 2}
   Index: 0
   SingleMesh: {fileID: 0}
+  MeshGameObject: {fileID: 0}
+  CustomScale: {x: 0, y: 0, z: 0}
 --- !u!1 &1439356171
 GameObject:
   m_ObjectHideFlags: 0
@@ -3003,8 +3035,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineObject: 0
+  CustomSize: 0
   DelayTime: 0.5
   CurrentTime: 0
+  IncreaseSize: 0
   ChunkMeshFilters: []
   ChunkMeshes: []
   OriginalMesh: {fileID: 0}
@@ -3012,6 +3046,8 @@ MonoBehaviour:
   MergedMaterial: {fileID: 2100000, guid: add416e8fc752b640b59ddcb8e4a8c80, type: 2}
   Index: 0
   SingleMesh: {fileID: 0}
+  MeshGameObject: {fileID: 0}
+  CustomScale: {x: 0, y: 0, z: 0}
 --- !u!1 &1532849614
 GameObject:
   m_ObjectHideFlags: 0
@@ -3205,8 +3241,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineObject: 0
+  CustomSize: 0
   DelayTime: 0.5
   CurrentTime: 0
+  IncreaseSize: 0
   ChunkMeshFilters: []
   ChunkMeshes: []
   OriginalMesh: {fileID: 0}
@@ -3214,6 +3252,8 @@ MonoBehaviour:
   MergedMaterial: {fileID: 2100000, guid: add416e8fc752b640b59ddcb8e4a8c80, type: 2}
   Index: 0
   SingleMesh: {fileID: 0}
+  MeshGameObject: {fileID: 0}
+  CustomScale: {x: 0, y: 0, z: 0}
 --- !u!1 &1634512466
 GameObject:
   m_ObjectHideFlags: 0
@@ -3613,7 +3653,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1950830093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5315,8 +5355,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OutlineObject: 0
+  CustomSize: 0
   DelayTime: 0.5
   CurrentTime: 0
+  IncreaseSize: 0
   ChunkMeshFilters: []
   ChunkMeshes: []
   OriginalMesh: {fileID: 0}
@@ -5324,6 +5366,8 @@ MonoBehaviour:
   MergedMaterial: {fileID: 2100000, guid: add416e8fc752b640b59ddcb8e4a8c80, type: 2}
   Index: 0
   SingleMesh: {fileID: 0}
+  MeshGameObject: {fileID: 0}
+  CustomScale: {x: 0, y: 0, z: 0}
 --- !u!23 &8736875605082784627
 MeshRenderer:
   m_ObjectHideFlags: 0

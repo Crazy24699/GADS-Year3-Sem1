@@ -49,7 +49,10 @@ public class ProgramManager : MonoBehaviour
             Finished = true;
         }
 
-
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     public void ReturnToMenu()

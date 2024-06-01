@@ -37,6 +37,8 @@ public class PlayerCrane : MonoBehaviour
     public float ScreenHeight;
     public float ScreenWidth;
 
+    public float SpeedModifier = 0.0f;
+
     public LayerMask SelectableLayers;
 
     public bool HandViewActive = false;
@@ -82,6 +84,7 @@ public class PlayerCrane : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ModifySpeed();
         RotateCrane();
 
         if(Input.GetMouseButtonDown(0))
@@ -139,17 +142,29 @@ public class PlayerCrane : MonoBehaviour
         }
     }
 
+    public void ModifySpeed()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            SpeedModifier += 0.005f;
+        }
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            SpeedModifier -= 0.005f;
+        }
+    }
+
     protected void RotateCrane()
     {
         if (Input.GetKey(KeyCode.D))
         {
-            YRotation += 0.025f;
+            YRotation += 0.025f + SpeedModifier;
             
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            YRotation -= 0.025f;
+            YRotation -= 0.025f - SpeedModifier;
             
         }
         transform.localRotation = Quaternion.Euler(transform.localRotation.x, YRotation, transform.localRotation.z);
@@ -228,10 +243,22 @@ public class PlayerCrane : MonoBehaviour
         LevelFinishPanel.SetActive(true);
     }
 
-    private void OnCollisionEnter(Collision CollidedObject)
+    //private void OnCollisionEnter(Collision CollidedObject)
+    //{
+    //    Debug.Log(CollidedObject.gameObject.name);
+    //    if (CollidedObject.collider.CompareTag("Environment"))
+    //    {
+    //        Debug.Log("restor");
+    //        EndGame(true);
+    //        EndScreenText.text = "You have hit the side of the construction zone and as such have caused major damage to the area, you are being sued for negligance";
+    //    }
+    //}
+
+    private void OnTriggerEnter(Collider Collision)
     {
-        if (CollidedObject.collider.CompareTag("Environment"))
+        if (Collision.CompareTag("Environment"))
         {
+            //Debug.Log("restor");
             EndGame(true);
             EndScreenText.text = "You have hit the side of the construction zone and as such have caused major damage to the area, you are being sued for negligance";
         }
