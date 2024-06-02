@@ -16,6 +16,7 @@ public class PlayerCrane : MonoBehaviour
     [SerializeField] protected GameObject InstantFailButton;
     [SerializeField] protected GameObject NextLevelButton;
     [SerializeField] protected GameObject LevelFinishPanel;
+    [SerializeField] protected GameObject LoadingScreen;
     [Space(5), Header("")]
     [SerializeField] protected GameObject JibObject;
 
@@ -56,7 +57,7 @@ public class PlayerCrane : MonoBehaviour
         {
             ProgramManagerScript = FindObjectOfType<ProgramManager>();
         }
-
+        StartCoroutine(LoadingScreenTimes());
     }
 
     public void TrackMouseChange()
@@ -263,5 +264,12 @@ public class PlayerCrane : MonoBehaviour
             EndScreenText.text = "You have hit the side of the construction zone and as such have caused major damage to the area, you are being sued for negligance";
         }
     }
-
+    public IEnumerator LoadingScreenTimes()
+    {
+        yield return new WaitForSeconds(1.65f);
+        if (LoadingScreen.activeSelf)
+        {
+            LoadingScreen.SetActive(false);
+        }
+    }
 }

@@ -2162,18 +2162,20 @@ MonoBehaviour:
   InstantFailButton: {fileID: 984255069}
   NextLevelButton: {fileID: 1374403266}
   LevelFinishPanel: {fileID: 1806316331}
+  LoadingScreen: {fileID: 1985292251}
   JibObject: {fileID: 2123877379}
   initialMousePosition: {x: 0, y: 0, z: 0}
   CurrentMousePosition: {x: 0, y: 0, z: 0}
   LowerBounds: {x: 0, y: -22, z: 4}
   UpperBounds: {x: 0, y: 0, z: 58}
   SelectedCraneStick: {fileID: 0}
-  EndScreenText: {fileID: 0}
+  EndScreenText: {fileID: 692193749}
   Tracking: 0
   ViewingCamera: {fileID: 824907782}
   ScreenMiddleCords: {x: 0, y: 0}
   ScreenHeight: 0
   ScreenWidth: 0
+  SpeedModifier: 0
   SelectableLayers:
     serializedVersion: 2
     m_Bits: 759
@@ -2614,8 +2616,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerHammer, Assembly-CSharp
+      - m_Target: {fileID: 858288545}
+        m_TargetAssemblyTypeName: PlayerCrane, Assembly-CSharp
         m_MethodName: MainScreen
         m_Mode: 1
         m_Arguments:
@@ -3732,8 +3734,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: PlayerHammer, Assembly-CSharp
+      - m_Target: {fileID: 858288545}
+        m_TargetAssemblyTypeName: PlayerCrane, Assembly-CSharp
         m_MethodName: NextLevel
         m_Mode: 1
         m_Arguments:
@@ -5523,7 +5525,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1985292252
 RectTransform:
   m_ObjectHideFlags: 0

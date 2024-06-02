@@ -197,7 +197,8 @@ public class MeshOutliner : MonoBehaviour
 
             TriangleChunkObject.transform.parent = transform;
             TriangleChunkObject.transform.localPosition = Vector3.zero;
-            TriangleChunkObject.gameObject.tag = "Interactable";
+            TriangleChunkObject.gameObject.tag = "Non Interactable";
+            //TriangleChunkObject.gameObject.layer = LayerMask.NameToLayer("Non Interactable");
 
             NewMeshFilter.mesh = MeshChunk;
             ChunkMeshFilters.Add(NewMeshFilter);
@@ -224,6 +225,7 @@ public class MeshOutliner : MonoBehaviour
     {
         if (Collision.CompareTag("Hand"))
         {
+
             OutlineObject = true;
         }
     }

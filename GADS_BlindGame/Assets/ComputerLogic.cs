@@ -32,9 +32,10 @@ public class ComputerLogic : MonoBehaviour
     }
     private void OnTriggerStay(Collider Collision)
     {
-        //Debug.Log("The shadows");
+
         if (Collision.CompareTag("Interactable") && Collision.name.Contains("bag") && CurrentPlacedObject == null) 
         {
+            Debug.Log(Collision.GetComponent<CementBags>().IngrediantName);
             CurrentPlacedObject = Collision.gameObject;
             PlayerCementLogic.PlacedObject = CurrentPlacedObject;
 
@@ -44,7 +45,9 @@ public class ComputerLogic : MonoBehaviour
             CorrectIngrediantWeight = PlayerCementLogic.CementIngrediantsClass[PlayerCementLogic.IngrediantIndex].Weight;
             float DesiredWeight = CorrectIngrediantWeight;
             string TextUpdate = $"Current Bag: {Name} \n Weight: {CurrentWeight}/ {DesiredWeight}";
+            
 
+            CurrentBag.transform.gameObject.tag = "Non Interactable";
             UpdateInfo(TextUpdate);
         }
     }
@@ -52,6 +55,7 @@ public class ComputerLogic : MonoBehaviour
     {
 
     }
+
 
     private void OnTriggerExit(Collider Collision)
     {

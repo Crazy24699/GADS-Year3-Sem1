@@ -20,6 +20,7 @@ public class PlayerHammer : MonoBehaviour
     [SerializeField] protected GameObject NextLevelButton;
     [SerializeField] protected GameObject LevelFinishPanel;
     [SerializeField] protected GameObject HandObject;
+    [SerializeField] protected GameObject LoadingScreen;
 
     [Space(5), Header(" ")]
     public Camera ViewingCamera; // Assign the main camera in the inspector
@@ -61,7 +62,7 @@ public class PlayerHammer : MonoBehaviour
 
     public PlayerState CurrentState;
 
-    protected ProgramManager ProgramManagerScript;
+    [SerializeField]protected ProgramManager ProgramManagerScript;
 
     private void Start()
     {
@@ -75,6 +76,10 @@ public class PlayerHammer : MonoBehaviour
         }
 
         AvailableNails = FindObjectsOfType<Nail>().ToList();
+
+        StartCoroutine(LoadingScreenTimes());
+
+
     }
 
     public void UpdateNailList(Nail NailRef)
@@ -264,6 +269,16 @@ public class PlayerHammer : MonoBehaviour
         yield return new WaitForSeconds(1.05f);
         HitHand = false;
     }
+
+    public IEnumerator LoadingScreenTimes()
+    {
+        yield return new WaitForSeconds(1.65f);
+        if (LoadingScreen.activeSelf)
+        {
+            LoadingScreen.SetActive(false);
+        }
+    }
+
 
 }
 

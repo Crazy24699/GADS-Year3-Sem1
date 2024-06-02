@@ -990,6 +990,7 @@ MonoBehaviour:
   NextLevelButton: {fileID: 554741757}
   LevelFinishPanel: {fileID: 1146322374}
   HandObject: {fileID: 1247756128}
+  LoadingScreen: {fileID: 1061191202}
   ViewingCamera: {fileID: 824907782}
   HoverObjectMask:
     serializedVersion: 2

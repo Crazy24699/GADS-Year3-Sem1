@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
@@ -33,6 +34,7 @@ public class PlayerCement : MonoBehaviour
     [SerializeField] protected GameObject InstantFailButton;
     [SerializeField] protected GameObject NextLevelButton;
     [SerializeField] protected GameObject HandObject;
+    [SerializeField] protected GameObject LoadingScreen;
 
     [SerializeField] protected TextMeshProUGUI EndScreenText;
 
@@ -48,6 +50,8 @@ public class PlayerCement : MonoBehaviour
     public float ScreenWidth;
 
     public LayerMask SelectableLayers;
+    public LayerMask ViewableLayers;
+
 
     private void Start()
     {
@@ -87,13 +91,15 @@ public class PlayerCement : MonoBehaviour
         {
             ProgramManagerScript = FindObjectOfType<ProgramManager>();
         }
+
+        StartCoroutine(LoadingScreenTimes());
     }
 
     public void RotateCamera()
     {
         if (Input.GetKey(KeyCode.W) && XRotation>UpperLimit.x)
         {
-            XRotation = XRotation -= 0.035f -SpeedModifier;
+            XRotation = XRotation -= 0.035f -SpeedModifier*-1;
 
         }
         if (Input.GetKey(KeyCode.S) && XRotation<LowerLimit.x)
@@ -102,7 +108,7 @@ public class PlayerCement : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.A) && YRotation > UpperLimit.y) 
         {
-            YRotation = YRotation -= 0.035f - SpeedModifier;
+            YRotation = YRotation -= 0.035f - SpeedModifier*-1;
         }
         if (Input.GetKey(KeyCode.D) && YRotation < LowerLimit.y) 
         {
@@ -162,12 +168,11 @@ public class PlayerCement : MonoBehaviour
         RaycastHit HitInfo;
 
         // Perform the raycast and check if it hits a collider on the specified layer
-        if (Physics.Raycast(RayCast, out HitInfo, 100, SelectableLayers))
+        if (Physics.Raycast(RayCast, out HitInfo, 100))
         {
             // Get the point in world space where the ray hit
             Vector3 HitPoint = HitInfo.point;
 
-            // Log the world position
             HandObject.transform.position = HitPoint;
         }
 
@@ -183,12 +188,13 @@ public class PlayerCement : MonoBehaviour
 
         GameObject HitObject;
 
-        if(Physics.Raycast(RayData, out RaycastHit HitInfo, RayLength))
+        if(Physics.Raycast(RayData, out RaycastHit HitInfo, RayLength, SelectableLayers))
         {
             HitObject = HitInfo.collider.gameObject;
 
             if (HitObject.CompareTag("Interactable") && PlacedObject == null) 
             {
+                Debug.Log(HitObject.name);
                 HitObject.GetComponent<CementBags>().RunInteraction();
                 PlacedObject = HitObject;
                 return;
@@ -221,11 +227,12 @@ public class PlayerCement : MonoBehaviour
                 case "Confirm Button":
                     foreach (var Bag in CementIngrediantsClass)
                     {
-                        Debug.Log("take a stand");
+                        Debug.Log("take a stand"+Bag.Name);
                         if (Bag.Name == CementBags.IngrediantName)
                         {
                             CorrectValues = CementBags.CheckIngredients(Bag.Name, Bag.Weight);
                             HandleBagLogic(CorrectValues);
+                            break;
                         }
                     }
                     break;
@@ -240,6 +247,7 @@ public class PlayerCement : MonoBehaviour
 
     public void HandleBagLogic(bool CorrectValues)
     {
+        Debug.Log("Run");
         IngrediantIndex++;
         if (IngrediantIndex >= 3)
         {
@@ -298,6 +306,15 @@ public class PlayerCement : MonoBehaviour
     public void MainScreen()
     {
         ProgramManagerScript.ReturnToMenu();
+    }
+
+    public IEnumerator LoadingScreenTimes()
+    {
+        yield return new WaitForSeconds(1.65f);
+        if (LoadingScreen.activeSelf)
+        {
+            LoadingScreen.SetActive(false);
+        }
     }
 
 }
