@@ -17,7 +17,7 @@ public class ComputerLogic : MonoBehaviour
     {
         PlayerCementLogic = FindObjectOfType<PlayerCement>();
 
-        WeightText.text = "No Material Detected";
+        WeightText.text = "First Material needed is silicone";
     }
 
     public void UpdateInfo(string UpdateText)

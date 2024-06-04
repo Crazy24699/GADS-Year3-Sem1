@@ -44,13 +44,15 @@ public class PlayerCrane : MonoBehaviour
 
     public bool HandViewActive = false;
     protected bool InteractionActive = true;
+    public bool LoadingscreenDone;
+
     [SerializeField] protected GameObject HandObject;
 
     // Start is called before the first frame update
     void Start()
     {
+        LoadingScreen.SetActive(true);
         YRotation = transform.rotation.y;
-
 
 
         if (FindObjectOfType<ProgramManager>() != null)
@@ -85,6 +87,12 @@ public class PlayerCrane : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (LoadingscreenDone && LoadingScreen.activeSelf)
+        {
+            LoadingScreen.SetActive(false);
+        }
+
         ModifySpeed();
         RotateCrane();
 
@@ -165,7 +173,7 @@ public class PlayerCrane : MonoBehaviour
 
         if (Input.GetKey(KeyCode.A))
         {
-            YRotation -= 0.025f - SpeedModifier;
+            YRotation -= 0.025f - SpeedModifier*-1;
             
         }
         transform.localRotation = Quaternion.Euler(transform.localRotation.x, YRotation, transform.localRotation.z);
@@ -220,11 +228,23 @@ public class PlayerCrane : MonoBehaviour
 
     public void NextLevel()
     {
+        if (ProgramManagerScript == null)
+        {
+            ProgramManagerScript = FindAnyObjectByType<ProgramManager>();
+            ProgramManagerScript.LoadNextLevel();
+            return;
+        }
         ProgramManagerScript.LoadNextLevel();
     }
 
     public void MainScreen()
     {
+        if (ProgramManagerScript == null)
+        {
+            ProgramManagerScript = FindAnyObjectByType<ProgramManager>();
+            ProgramManagerScript.ReturnToMenu();
+            return;
+        }
         ProgramManagerScript.ReturnToMenu();
     }
 
@@ -271,5 +291,6 @@ public class PlayerCrane : MonoBehaviour
         {
             LoadingScreen.SetActive(false);
         }
+        LoadingscreenDone = true;
     }
 }

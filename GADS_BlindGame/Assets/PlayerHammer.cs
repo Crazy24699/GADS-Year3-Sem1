@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerHammer : MonoBehaviour
@@ -34,6 +33,7 @@ public class PlayerHammer : MonoBehaviour
     protected bool InteractionActive = true;
     public bool HandViewActive = false;
     public bool HitHand = false;
+    public bool LoadingscreenDone=false;
 
     [Space(5), Header(" ")]
     public Vector2 Position;
@@ -66,6 +66,8 @@ public class PlayerHammer : MonoBehaviour
 
     private void Start()
     {
+        LoadingScreen.SetActive(true);
+
         LevelFinishPanel.SetActive(false);
         FingerHitNum -= 1;
         FingerHit();
@@ -73,6 +75,7 @@ public class PlayerHammer : MonoBehaviour
         if (FindObjectOfType<ProgramManager>() != null)
         {
             ProgramManagerScript = FindObjectOfType<ProgramManager>();
+            Debug.Log("running");
         }
 
         AvailableNails = FindObjectsOfType<Nail>().ToList();
@@ -88,13 +91,19 @@ public class PlayerHammer : MonoBehaviour
         if(AvailableNails.Count <= 0)
         {
             LevelFinishPanel.SetActive(true);
-            Time.timeScale = 0.0f;
+            //Time.timeScale = 0.0f;
             EndScreenText.text = "You managed to hammer in all the nails without arousing suspicion";
         }
     }
 
     void Update()
     {
+
+        if (LoadingscreenDone && LoadingScreen.activeSelf)
+        {
+            LoadingScreen.SetActive(false);
+        }
+
         if (Input.GetKeyDown(KeyCode.H))
         {
             switch (HandViewActive)
@@ -116,12 +125,12 @@ public class PlayerHammer : MonoBehaviour
             }
         }
 
-        if (HandViewActive )
+        if (HandViewActive)
         {
             HandFunctionality();
         }
 
-        if(Input.GetMouseButtonDown(0) && InteractionActive)
+        if (Input.GetMouseButtonDown(0) && InteractionActive)
         {
 
             switch (CurrentState)
@@ -142,7 +151,7 @@ public class PlayerHammer : MonoBehaviour
 
         MouseMovement();
 
-        if (SelectedObject != null && SelectedObject.layer != NonInteractable) 
+        if (SelectedObject != null && SelectedObject.layer != NonInteractable)
         {
             SelectedObject.transform.position = MousePosition;
             //SelectedObject.transform.position = new Vector3(MousePosition.x, 15, MousePosition.z);
@@ -252,14 +261,25 @@ public class PlayerHammer : MonoBehaviour
                 "job at hand and has helped you find another place to work, just thank goodness you didnt harm anyone else";
         }
     }
-
     public void NextLevel()
     {
+        if (ProgramManagerScript == null)
+        {
+            ProgramManagerScript = FindAnyObjectByType<ProgramManager>();
+            ProgramManagerScript.LoadNextLevel();
+            return;
+        }
         ProgramManagerScript.LoadNextLevel();
     }
 
     public void MainScreen()
     {
+        if (ProgramManagerScript == null)
+        {
+            ProgramManagerScript = FindAnyObjectByType<ProgramManager>();
+            ProgramManagerScript.ReturnToMenu();
+            return;
+        }
         ProgramManagerScript.ReturnToMenu();
     }
 
@@ -270,13 +290,23 @@ public class PlayerHammer : MonoBehaviour
         HitHand = false;
     }
 
+    public IEnumerator Wait()
+    {
+        Debug.Log("whore");
+        yield return new WaitForSeconds(1.85f);
+        Debug.Log("whore");
+    }
+
     public IEnumerator LoadingScreenTimes()
     {
+
         yield return new WaitForSeconds(1.65f);
+        Debug.Log("Run bitch run");
         if (LoadingScreen.activeSelf)
         {
             LoadingScreen.SetActive(false);
         }
+        LoadingscreenDone = true;
     }
 
 

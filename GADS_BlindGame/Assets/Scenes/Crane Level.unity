@@ -2180,6 +2180,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 759
   HandViewActive: 0
+  LoadingscreenDone: 0
   HandObject: {fileID: 23255332}
 --- !u!54 &858288546
 Rigidbody:

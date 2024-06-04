@@ -27,7 +27,7 @@ public class PlayerCement : MonoBehaviour
     public CementIngrediants CurrentChosenIngrediant;
     public CementIngrediants[] CementIngrediantsClass;
     protected ComputerLogic ComputerLogicScript;
-    protected ProgramManager ProgramManagerScript;
+    [SerializeField]protected ProgramManager ProgramManagerScript;
 
     public GameObject PlacedObject;
     public GameObject LevelFinishPanel;
@@ -41,6 +41,7 @@ public class PlayerCement : MonoBehaviour
     public bool Failed;
     protected bool InteractionActive = true;
     public bool HandViewActive = false;
+    public bool LoadingscreenDone;
 
     public int IngrediantIndex = 0;
     public int IncorrectBags = 0;
@@ -50,11 +51,12 @@ public class PlayerCement : MonoBehaviour
     public float ScreenWidth;
 
     public LayerMask SelectableLayers;
-    public LayerMask ViewableLayers;
+    public LayerMask HandInteractionLayers;
 
 
     private void Start()
     {
+        LoadingScreen.SetActive(true);
         //
         YRotation = transform.rotation.y;
 
@@ -119,6 +121,12 @@ public class PlayerCement : MonoBehaviour
 
     private void Update()
     {
+
+        if (LoadingscreenDone && LoadingScreen.activeSelf)
+        {
+            LoadingScreen.SetActive(false);
+        }
+
         ModifySpeed();
         RotateCamera();
 
@@ -168,7 +176,7 @@ public class PlayerCement : MonoBehaviour
         RaycastHit HitInfo;
 
         // Perform the raycast and check if it hits a collider on the specified layer
-        if (Physics.Raycast(RayCast, out HitInfo, 100))
+        if (Physics.Raycast(RayCast, out HitInfo, 100, HandInteractionLayers))
         {
             // Get the point in world space where the ray hit
             Vector3 HitPoint = HitInfo.point;
@@ -217,11 +225,11 @@ public class PlayerCement : MonoBehaviour
                     break;
 
                 case "Rotate Right":
-                    CementBags.HandleRotation(+0.045f);
+                    CementBags.HandleRotation(+0.065f);
                     break;
 
                 case "Rotate Left":
-                    CementBags.HandleRotation(-0.045f);
+                    CementBags.HandleRotation(-0.065f);
                     break;
 
                 case "Confirm Button":
@@ -279,8 +287,13 @@ public class PlayerCement : MonoBehaviour
     public void EndGame()
     {
         InteractionActive = false;
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
         LevelFinishPanel.SetActive(true);
+
+        if (IncorrectBags == 0)
+        {
+            EndScreenText.text = $"You got all 3 bags correct";
+        }
 
         if(IncorrectBags>0 &&  IncorrectBags < 3)
         {
@@ -300,11 +313,18 @@ public class PlayerCement : MonoBehaviour
 
     public void NextLevel()
     {
+        if (ProgramManagerScript == null)
+        {
+            ProgramManagerScript = FindAnyObjectByType<ProgramManager>();
+            ProgramManagerScript.LoadNextLevel();
+            return;
+        }
         ProgramManagerScript.LoadNextLevel();
     }
 
     public void MainScreen()
     {
+        ProgramManagerScript = FindAnyObjectByType<ProgramManager>();
         ProgramManagerScript.ReturnToMenu();
     }
 
@@ -315,6 +335,7 @@ public class PlayerCement : MonoBehaviour
         {
             LoadingScreen.SetActive(false);
         }
+        LoadingscreenDone = true;
     }
 
 }
